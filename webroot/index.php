@@ -10,6 +10,9 @@ use framework\mvc\dispatcher\HTTPRequestDispatcher;
 use framework\core\Context;
 use framework\data\redis;
 use framework\data\pdo;
+use framework\data\mongo;
+use framework\util\Singleton;
+use service\MongodbService;
 use utils\Functions;
 use framework\mvc\view\smarty;
 use \service\CacheService;
@@ -47,6 +50,7 @@ if (CacheConfigs::$configs && is_array(CacheConfigs::$configs)) {
 	}
 }
 
+
 class MyHTTPRequestDispatcher extends HTTPRequestDispatcher
 {
 	public function getCtrlClassName()
@@ -55,8 +59,11 @@ class MyHTTPRequestDispatcher extends HTTPRequestDispatcher
 	}
 }
 
+
 $dispatcher = new \MyHTTPRequestDispatcher();
 $dispatcher->dispatch();
+
+
 
 
 

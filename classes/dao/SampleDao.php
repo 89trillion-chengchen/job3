@@ -19,4 +19,8 @@ class SampleDao extends ConstDaoBase
 	{
 		$this->useDb();
 	}
+
+    public function fetchAll($sql){
+        $this->dbHelper->fetchAll($sql);
+    }
 }

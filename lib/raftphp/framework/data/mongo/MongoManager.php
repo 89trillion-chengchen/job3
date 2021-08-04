@@ -2,6 +2,8 @@
 namespace framework\data\mongo;
 
 use \MongoClient;
+use MongoDB\Driver\Manager;
+
 /**
  * Mongo管理工具，用于管理Mongo对象的工具，需要Mongo扩展。
  * 
@@ -37,12 +39,25 @@ class MongoManager {
      * @return \Mongo
      */
     public static function getInstance($name) {
- 
+
+
         if (empty(self::$instances[$name])) {
+
             if (empty(self::$configs[$name])) {
                 return null;
             }
+            //$client = new MongoClient('10.0.3.53:27017');
+            //$client = new MongoClient('127.0.0.1:27017');
+
+            //$client = new \MongoClient('10.0.3.53:27017');
+            //$client = new \MongoClient('127.0.0.1:27017');
+
+            //$client = new Manager("mongodb://10.0.3.53:27017");
+            //$client = new Manager("mongodb://127.0.0.1:27017");
+
             $client = new \MongoClient(self::$configs[$name]->host . ":" .self::$configs[$name]->port);
+
+
             $dbname = self::$configs[$name]->dbname;
             $db = $client->$dbname;
             self::$instances[$name] = $db;

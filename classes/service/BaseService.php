@@ -16,10 +16,6 @@ class BaseService
         return $this->dataDao;
     }
 
-
-
-
-
     function show($status,$msg='',$data=[]) {
 
         $result = [

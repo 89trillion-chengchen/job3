@@ -8,9 +8,17 @@
 
 namespace ctrl;
 
+use dao\UserDao;
 use framework\util;
 use framework\util\Singleton;
+use service\AnswerService;
 use service\CacheService;
+use service\GiftCodeService;
+use service\IndexService;
+use service\MongodbService;
+use utils\HttpUtil;
+use view\JsonView;
+use MongoDB\Driver\Manager;
 
 /**
  *
@@ -28,28 +36,58 @@ class IndexCtrl extends CtrlBase
 		parent::__construct();
 	}
 
-	public function main()
-	{
-		return '';
-	}
+    public function index(){
+        //获取get或post请求数据
+        $uid=HttpUtil::getPostData('uid');
+
+        /** @var IndexService $indexService */
+        $indexService=Singleton::get(IndexService::class);
+
+        //校验数据
+        list($checkResult, $checkNotice) = $indexService->checkParam($uid);
+
+        if (true!==$checkResult){
+            $rspArr = AnswerService::makeResponseArray($checkNotice);
+            return new JsonView($rspArr);
+        }
+
+        //执行函数
+        $result=$indexService->creatUser($uid);
+
+        return new JsonView($result);
+
+    }
 
 	public function test()
     {
+        //die(sss);
 
-        $content=array("uqwyi" => "67", "qweqwe" => "645");
-        /** @var CacheService $cacheService */
-        $cacheService = Singleton::get(CacheService::class);
-        /*$cacheService->lPush('code_79hsjakkh_use',json_encode($content));
-        $liscc = $cacheService->getLists(code_79hsjakkh_use);*/
+        /*$mongo  = new \MongoClient('mongodb://10.0.3.53');
 
-        //var_dump($cacheService->getAllHash(code_ye6vZ39W));
+        $databas = $mongo->selectDB('job4');
+        echo $databas;*/
 
-        $codeList=$cacheService->getAllHash(code_ye6vZ39W);
-        $useList=$cacheService->getAllHash('code_ye6vZ39W'.'_use');
+        /** @var MongodbService $mongodbService*/
+        $mongodbService = Singleton::get(MongodbService::class);
+        $x=array(
+            "金币"=>"67",
+            "钻石"=>"645"
+        );
+        $result=$mongodbService->save("job4.runoob",$x);
+            //$mongodbService->seclectDB('job4');
 
-        print_r($codeList) ;
-        print_r($useList) ;
+
+        //var_dump($result);
+
+
+        //echo $db;
+        /*$collection=$mongodbService->selectCollection('Collections');
+
+        echo $collection;*/
+        //$client = new Manager('mongodb://127.0.0.1:27017');
 
 
     }
+
+
 }
