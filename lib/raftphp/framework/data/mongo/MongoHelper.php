@@ -49,6 +49,14 @@ class MongoHelper {
     public function save($collection,$data) {
         return $this->Mongo->$collection ? $this->Mongo->$collection->save($data) : false;
     }
+
+    public function selcetDB($DBname){
+        return $this->Mongo->selectDB($DBname);
+    }
+
+    public function selectCollection($collection){
+        return $this->Mongo->selectCollection($collection);
+    }
     
     public function command($data)
     {

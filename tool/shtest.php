@@ -7,6 +7,7 @@
  */
 set_time_limit(0);
 
+use framework\data\mongo;
 use framework\data\pdo;
 use framework\data\redis;
 use framework\core\Context;
@@ -32,6 +33,12 @@ if (CacheConfigs::$configs && is_array(CacheConfigs::$configs)) {
 	foreach (CacheConfigs::$configs as $configName => $configValue) {
 		redis\RedisManager::addConfigration($configName, new redis\RedisConfiguration($configValue));
 	}
+}
+
+if (MongoDBConfigs::$configs && is_array(MongoDBConfigs::$configs)) {
+    foreach (MongoDBConfigs::$configs as $configName => $configValue) {
+        mongo\MongoManager::addConfigration($configName, new mongo\MongoConfiguration($configValue));
+    }
 }
 
 $dispatcher = new ShellRequestDispatcher();

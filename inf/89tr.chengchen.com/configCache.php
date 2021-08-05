@@ -2,8 +2,7 @@
 /**
  */
 
-class CacheConfigs
-{
+class CacheConfigs{
 	public static $configs = [
 		'default' => [
 			'protocol' => "redis",
