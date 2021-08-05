@@ -19,7 +19,7 @@ class GiftCodeServiceTest extends TestCase
         $count=3;
         $begintime='2021-07-28 19:48:03';
         $endtime='2021-08-28 19:48:03';
-        $content='{"jinbi"=>"67","zuoshi"=>"645"}';
+        $content='{"coin": "67", "diamond": "645","hero": "盖伦","soldier": "投石车","props": "八十连抽"}';
         $type=2;
         $role=1;
         $code='code_Eao9zb6x';
