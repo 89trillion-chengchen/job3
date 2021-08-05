@@ -73,7 +73,13 @@ http://89tr.chengchen.com/GiftCode/useCode
 {
     "status": 200,
     "msg": "ok",
-    "data": {"gold"=>"67","Diamond"=>"645"}
+    "data": {
+        "coin": "67",
+        "diamond": "645",
+        "props": "十连抽券",
+        "hero": "狐狸",
+        "soldier": "弓箭手"
+    }
 }
 ```
 
@@ -86,20 +92,13 @@ http://89tr.chengchen.com/GiftCode/useCode
 │   ├── ctrl
 │   │   ├── CtrlBase.php
 │   │   ├── GiftCodeCtrl.php
-│   │   ├── IndexCtrl.php
-│   │   ├── OperationCtrl.php
-│   │   └── selectCode.php
 │   ├── service
 │   │   ├── AnswerService.php
 │   │   ├── BaseService.php
 │   │   ├── CacheService.php
 │   │   ├── GiftCodeService.php
-│   │   ├── OperationService.php
-│   │   ├── creatGift.php
-│   │   └── selcetCode.php
 │   ├── unitTest
 │   │   ├── GiftCodeServiceTest.php
-│   │   └── OperationServiceTest.php
 ├── report
 └── webroot
     └── index.php

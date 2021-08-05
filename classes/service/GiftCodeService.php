@@ -23,25 +23,25 @@ class GiftCodeService extends BaseService
     public function checkUploadParams($admin, $description, $count, $begintime, $endtime, $content, $type)
     {
         if (!isset($admin) || empty($admin)) {
-            return [false, 'lack_of_$admin'];
+            return [false, 'lack_of_admin'];
         }
         if (!isset($description) || empty($description)) {
-            return [false, 'lack_of_$description'];
+            return [false, 'lack_of_description'];
         }
         if (!isset($count) || empty($count)) {
-            return [false, 'lack_of_$count'];
+            return [false, 'lack_of_count'];
         }
         if (!isset($begintime) || empty($begintime)) {
-            return [false, 'lack_of_$begintime'];
+            return [false, 'lack_of_begintime'];
         }
         if (!isset($endtime) || empty($endtime)) {
-            return [false, 'lack_of_$endtime'];
+            return [false, 'lack_of_endtime'];
         }
         if (!isset($content) || empty($content)) {
-            return [false, 'lack_of_$content'];
+            return [false, 'lack_of_content'];
         }
         if (!isset($type) || empty($type)) {
-            return [false, 'lack_of_$type'];
+            return [false, 'lack_of_type'];
         }
         return [true, 'ok'];
     }
@@ -49,13 +49,13 @@ class GiftCodeService extends BaseService
     public function checkParams($admin, $code, $role)
     {
         if (!isset($admin) || empty($admin)) {
-            return [false, 'lack_of_$admin'];
+            return [false, 'lack_of_admin'];
         }
         if (!isset($code) || empty($code)) {
-            return [false, 'lack_of_$code'];
+            return [false, 'lack_of_code'];
         }
         if (!isset($role) || empty($role)) {
-            return [false, 'lack_of_$role'];
+            return [false, 'lack_of_role'];
         }
 
         return [true, 'ok'];
@@ -64,7 +64,7 @@ class GiftCodeService extends BaseService
     public function checkParam($code)
     {
         if (!isset($code) || empty($code)) {
-            return [false, 'lack_of_$code'];
+            return [false, 'lack_of_code'];
         }
         return [true, 'ok'];
     }
@@ -113,6 +113,7 @@ class GiftCodeService extends BaseService
             $cacheService->setHash('code_' . $code, 'content_' . $key, $value);
         }
         if ($result1 > 0 && $result2 > 0 && $result3 > 0 && $result4 > 0 && $result5 > 0 && $result6 > 0 && $result7 > 0 && $result8 > 0 && $result9 > 0) {
+            //设置过期时间
             $cacheService->expire('code_' . $code, strtotime($endtime) - strtotime($craetData));
         } else {
             return parent::show(
@@ -145,14 +146,13 @@ class GiftCodeService extends BaseService
         $roled = $cacheService->getHash($code, 'role');
         $receivedCount = $cacheService->getHash($code, 'receivedCount');
         $nowData = date('Y-m-d H:i:s');
-
+        //取出礼包奖励内容
         $content = array();
         foreach ($redisArray as $key => $value) {
             if (substr($key, 0, 8) == 'content_') {
-                array_push($content, substr($key, 8, strlen($key)), $value);
+                $content[substr($key, 8, strlen($key))] = $value;
             }
         }
-
         if (empty($redisArray)) {
             return parent::show(
                 200,
