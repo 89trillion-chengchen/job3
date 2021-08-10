@@ -11,8 +11,6 @@ use utils\HttpUtil;
 
 class GiftCodeService extends BaseService
 {
-
-
     /**
      * GiftCodeService constructor.
      */
