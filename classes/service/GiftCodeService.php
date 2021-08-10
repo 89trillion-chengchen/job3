@@ -125,7 +125,7 @@ class GiftCodeService extends BaseService
         return parent::show(
             200,
             'ok',
-            code_ . $code
+            'code_' . $code
         );
 
     }

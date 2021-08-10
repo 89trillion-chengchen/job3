@@ -100,6 +100,8 @@ http://89tr.chengchen.com/GiftCode/useCode
 │   ├── unitTest
 │   │   ├── GiftCodeServiceTest.php
 ├── report
+│   ├── locustfile.py
+│   └── report_1627906663.482877.html
 └── webroot
     └── index.php
 

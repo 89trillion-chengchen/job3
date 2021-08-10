@@ -1,11 +1,24 @@
 <?php
 
-namespace service;
+require "../../lib/raftphp/framework/data/redis/RedisConfiguration.php";
+require "../../lib/raftphp/framework/data/redis/RedisHelper.php";
+require "../../lib/raftphp/framework/data/redis/RedisManager.php";
+require "../dao/DaoBase.php";
+require "../dao/ConstDaoBase.php";
+require "../dao/CacheDao.php";
+require "../service/BaseService.php";
+require "../service/CacheService.php";
+require "../service/GiftCodeService.php";
+require "../../lib/raftphp/framework/util/Singleton.php";
 
-use framework\mvc\view\JSONView;
 use framework\util\Singleton;
-use service\GiftCodeService;
 use PHPUnit\Framework\TestCase;
+use dao\DaoBase;
+use dao\ConstDaoBase;
+use dao\CacheDao;
+use service\BaseService;
+use service\CacheService;
+use service\GiftCodeService;
 
 
 class GiftCodeServiceTest extends TestCase
@@ -13,23 +26,34 @@ class GiftCodeServiceTest extends TestCase
 
     public function testCreatGiftCode()
     {
-
-        $admin='admin';
-        $description='description';
-        $count=3;
-        $begintime='2021-07-28 19:48:03';
-        $endtime='2021-08-28 19:48:03';
-        $content='{"coin": "67", "diamond": "645","hero": "盖伦","soldier": "投石车","props": "八十连抽"}';
-        $type=2;
-        $role=1;
-        $code='code_Eao9zb6x';
-
-
+        $admin = 'admin';
+        $description = 'description';
+        $count = 3;
+        $begintime = '2021-07-28 19:48:03';
+        $endtime = '2021-08-28 19:48:03';
+        $content = '{"coin": "67", "diamond": "645","hero": "盖伦1","soldier": "投石车","props": "八十连抽"}';
+        $type = 1;
+        $role = 1;
         /** @var GiftCodeService $giftCodeService */
         $giftCodeService = Singleton::get(GiftCodeService::class);
-        echo new JSONView($giftCodeService->creatGiftCode($admin, $description, $count, $begintime, $endtime, $content, $type, $role));
-        echo new JSONView($giftCodeService->getCodeInfo($code));
-        echo new JSONView($giftCodeService->useCode($admin,$role,$code));
+        print_r($giftCodeService->creatGiftCode($admin, $description, $count, $begintime, $endtime, $content, $type, $role));
+    }
 
+    public function testUseCode()
+    {
+        $admin = 'zhangsan';
+        $role = 1;
+        $code = 'code_Nc97bCFX';
+        /** @var GiftCodeService $giftCodeService */
+        $giftCodeService = Singleton::get(GiftCodeService::class);
+        print_r($giftCodeService->useCode($admin, $role, $code));
+    }
+
+    public function testGetCodeInfo()
+    {
+        $code = 'code_Nc97bCFX';
+        /** @var GiftCodeService $giftCodeService */
+        $giftCodeService = Singleton::get(GiftCodeService::class);
+        print_r($giftCodeService->getCodeInfo($code));
     }
 }
