@@ -20,6 +20,7 @@ http://89tr.chengchen.com/GiftCode/creatgiftCode
 ```
 #### 请求参数
 ```php 
+{
     "admin":"root",
     "description":"奖励",
     "count":"3",
@@ -28,6 +29,7 @@ http://89tr.chengchen.com/GiftCode/creatgiftCode
     "content":"{"coin": "67", "diamond": "645","hero": "盖伦","soldier": "投石车","props": "八十连抽"}",
     "type":"1",
     "role":"1"
+}
 ```
 #### 响应
 ```php 
@@ -48,7 +50,9 @@ http://89tr.chengchen.com/GiftCode/getCodeInfo
 ```
 #### 请求参数
 ```php 
+{
     "code":"code_O0afeWfR"
+}
 ```
 #### 响应
 ```php 
@@ -85,9 +89,11 @@ http://89tr.chengchen.com/GiftCode/useCode
 ```
 #### 请求参数
 ```php 
+{
     "code":"code_O0afeWfR",
     "admin":"user_123",
     "role":"1"
+}
 ```
 #### 响应
 ```php 
