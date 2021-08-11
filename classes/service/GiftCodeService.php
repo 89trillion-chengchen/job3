@@ -153,8 +153,8 @@ class GiftCodeService extends BaseService
         }
         if (empty($redisArray)) {
             return parent::show(
-                200,
-                'ok',
+                400,
+                'error',
                 '礼包码未找到！'
             );
         } else if (strtotime($nowData) - strtotime($begintime) > 0 && strtotime($nowData) - strtotime($endtime) < 0) {
@@ -175,7 +175,7 @@ class GiftCodeService extends BaseService
                         );
                     } else {
                         return parent::show(
-                            2000,
+                            200,
                             'ok',
                             '礼包码已被兑换！'
                         );
@@ -195,8 +195,8 @@ class GiftCodeService extends BaseService
                     foreach ($useList as $key => $value) {
                         if ($key == $admin) {
                             return parent::show(
-                                400,
-                                'error',
+                                200,
+                                'ok',
                                 '已兑换过！'
                             );
                         }
@@ -246,8 +246,8 @@ class GiftCodeService extends BaseService
         $useList = $cacheService->getAllHash($code . '_use');
         if (empty($codeList)) {
             return parent::show(
-                200,
-                'ok',
+                400,
+                'error',
                 '礼包码未找到！'
             );
         } else {
